@@ -4,6 +4,96 @@
 
 ## Session
 The MCP lifecycle details the complete steps governing how a host and a server establish and maintain a connection during a session.
+- Session   is defined as a continuous connection between a client and server. 
+- For instance, when using a Claude desktop that connects to a GitHub server, the connection remains active until the desktop is opened. 
+The sequence of steps followed to establish and maintain this connection during the session is what constitutes the MCP lifecycle.
+
+## MCP Lifecycle Stages
+
+The MCP lifecycle consists of three main stages: **Initialization**, **Normal Operation**, and **Shutdown**.
+
+- **Initialization**: The client attempts to connect to the server to start a session.
+- **Normal Operation**: Users send questions to the server and receive responses.
+- **Shutdown**: The session is terminated, either by the client closing or the server being shut down.
+
+
+# MCP Lifecycle: Step-by-Step Guide
+
+## 1. Initialization Phase (Step-by-Step)
+
+   1. **Client Sends Initialization Request**  
+      - The client initiates the connection by sending an initialization request. This request includes the client's MCP protocol version and capabilities.
+
+   2. **Server Responds with Its Protocol Version and Capabilities**  
+      - The server responds with its own MCP protocol version and capabilities, allowing both parties to establish compatibility.
+
+   3. **Client Sends Initialization Confirmation**  
+      - After the server responds, the client confirms the successful initialization by sending an "initialized" notification.
+
+   > **Important Note:** During the initialization phase, no other requests (except for pings) can be exchanged between the client and server.
+
+---
+
+## 2. Normal Operation Phase (Step-by-Step)
+
+   1. **Client Sends JSON RPC Requests**  
+      - The client sends JSON RPC requests to the server to request information or resources. Example endpoints include:
+        - `/tools/list`
+        - `/resources/list`
+        - `/props/list`
+
+   2. **Server Responds with Available Resources**  
+      - The server responds with the list of supported tools, resources, and functionalities based on the client’s request.
+
+   3. **Client Discovers and Invokes Tools**  
+      - After receiving the server's list of available tools, the client can request specific tools based on user needs, following the protocol defined during initialization.
+
+---
+
+## 3. Shutdown Phase (Step-by-Step)
+
+   1. **Client Initiates Shutdown**  
+      - The client initiates the shutdown process by either closing the server’s input stream or sending a termination signal.
+
+   2. **Server Terminates the Session**  
+      - The transport layer (either STDIO for local servers or HTTP for remote servers) handles the termination of the connection. The server typically does not initiate shutdown.
+
+---
+
+## 4. Timeout Mechanism (Step-by-Step)
+
+   1. **Client Sets Timeout Threshold**  
+      - When building the client with the MCP SDK, set a timeout period for requests (e.g., 30 seconds).
+
+   2. **Client Sends Request**  
+      - The client sends a request to the server and waits for a response within the set timeout period.
+
+   3. **Client Triggers Timeout if No Response**  
+      - If the server does not respond within the timeout period, the client triggers the timeout mechanism.
+
+   4. **Client Sends Cancellation Notification**  
+      - The client sends a cancellation notification to the server to stop processing the request. The cancellation notification is a JSON RPC method named `notifications/cancelled`.
+
+   5. **Server Stops Processing**  
+      - Upon receiving the cancellation notification, the server stops processing and does not return an answer.
+
+---
+
+## Additional Notes
+
+- **Pings:** Periodic ping messages are used to check if the host and server are alive and responsive. They help maintain the connection during long-running tasks to prevent disconnections by proxies or operating systems.
+  
+- **Error Handling:** Common error scenarios include protocol version mismatches, invalid arguments, timeouts, and server failures. These are handled using JSON RPC error codes like `-32601` (Method Not Found) and `602` (Invalid Parameter).
+
+
+#### Above is Step-by-Step Summary Guide .Now in detailed explanation
+
+# MCP Lifecycle Overview
+- The MCP Lifecycle explains how various components like hosts, clients, and servers interact together. 
+- It outlines the step-by-step processes necessary for the proper functioning of MCP.
+
+## Session
+The MCP lifecycle details the complete steps governing how a host and a server establish and maintain a connection during a session.
 - Sessiob   is defined as a continuous connection between a client and server. 
 - For instance, when using a Claude desktop that connects to a GitHub server, the connection remains active until the desktop is opened. 
 The sequence of steps followed to establish and maintain this connection during the session is what constitutes the MCP lifecycle.
