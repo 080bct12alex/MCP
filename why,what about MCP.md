@@ -1,4 +1,4 @@
-# Introduction to MCP
+# Introduction(why,what) to MCP and its Architecture
 ##  MCP (Model Context Protocol)
 - MCP (Model Context Protocol) is a framework designed to streamline communication between AI tools (such as chatbots) and external systems (servers).
 - It solves problems related to context assembly, tool fragmentation, and integration.
@@ -6,7 +6,7 @@
    across various AI-enabled platforms.
 - It is expected to become an industry standard in the upcoming years, facilitating more efficient AI tool integration into everyday tasks and workflows.
 
-## Definition of MCP Server
+##  MCP Server
 - An MCP server is a system or platform that provides functionalities or resources that an AI tool (host) interacts with through an MCP client.
 -  These servers can be local (operating on the same machine as the host) or remote (operating over a network).
 -  The server handles requests from the host via the MCP client, executing tasks such as retrieving data, updating resources, or processing operations.
