@@ -12,11 +12,11 @@ A  MCP server  for an expense tracker chatbot that allows users to manage their 
 - Uses FastMCP,  SQLite for storage.
 
 
-## Expense Tracker
+## MCP Server : Expense Tracker
 
   Create **main.py** 
 
-```
+```bash
 from fastmcp import FastMCP
 
 mcp = FastMCP("ExpenseTracker")
@@ -28,9 +28,6 @@ if __name__ == "__main__":
     server.run()
 
 
-
-
-
 ```
 
 ### 1.  Database Initialization 
@@ -39,7 +36,7 @@ if __name__ == "__main__":
 - **Database initialization code**
        
     - database.py or integrated into (main.py):
-```
+```bash
 import os
 import sqlite3
 
@@ -67,14 +64,12 @@ init_db()
  
 ###  2. Add and List All Expenses
 
-```
+```bash
 @mcp.tool()
 def add_expense(date, amount, category, subcategory="", note=""):
 
 @mcp.tool()
 def list_expenses(date):
-
-
 
 
 ```
@@ -85,14 +80,14 @@ def list_expenses(date):
         
        List Expenses by Date Range
 
-```
+```bash
 @mcp.tool()
 def list_expenses(start_date, end_date):
 
 ```
 
 #### Summarize Expenses
-```
+```bash
 @mcp.tool()
 def summarize(start_date, end_date, category=None):
 
@@ -106,7 +101,7 @@ def summarize(start_date, end_date, category=None):
 ### 4. Consistent Categories with Resources
 
 4.1 Create Categories JSON File (categories.json):
-```
+```bash
 {
   "Transportation": ["Cab Ride"],
   "Entertainment": ["Movies"],
@@ -115,7 +110,7 @@ def summarize(start_date, end_date, category=None):
 ```
 
 4.2 Add Resource to MCP Server
-```
+```bash
 import os
 
 CATEGORIES_PATH = os.path.join(os.path.dirname(__file__), "categories.json")
@@ -144,24 +139,45 @@ def categories():
 
 - Existing Expense Tracker  powered by Fast API backend that serves web, Android, iOS clients.
 - Goal: Integrate with MCP clients like Claude Desktop without rewriting logic.
+- The Problem Avoided: Rewriting all the existing add_expense, list_expense, and summarize logic into new MCP-specific tools.
 
 5.2 Solution: FastMCP.from_fastapi()
+- A separate file (server.py) is created to bridge/Convert the existing Fast API app to an MCP Server. This requires minimal code.
 
-- Create bridge file server.py:
-```
+Code: server.py (The Bridge / FastMCP)
+
+```bash
 from mcp.server.fastmcp import FastMCP
-from main import app  # Assuming your Fast API app instance is named 'app'
+ 
+from main import app 
 
-mcp_server = FastMCP.from_fastapi(
+mcp = FastMCP.from_fastapi(
     app=app,
     name="FastAPI Expense Tracker"
 )
 
 if __name__ == "__main__":
-    mcp_server.run()
+    mcp.run()
+
+
+
 ```
+
+Code: main.py (FastAPI)
+
+```bash
+
+
+
+
+```
+
+
 
 5.3 Benefit
 
 - Saves development time by exposing existing Fast API endpoints as MCP tools automatically.
+    -  The existing (add, list, summarize) exposed via the Fast API endpoints is automatically converted into accessible MCP tools, making the application immediately compatible with MCP clients like Claude Desktop.
 
+5.4 Conclusion 
+- Fast-MCP is compatible with Fast API. This allows existing Fast API applications  to be easily converted into an MCP server without rewriting the core logic.
