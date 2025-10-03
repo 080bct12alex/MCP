@@ -1,6 +1,6 @@
 # MCP Implementation 
 ## Introduction
--  focusing on how to implement the **Model Context Protocol (MCP)**, specifically examining the **client-server communication** aspect. 
+-  implement the **Model Context Protocol (MCP)**
 -  learning how to integrate MCP into existing projects, starting with **ready-made tools** and evolving into custom setups with self-made servers and clients.
 
 ---
@@ -23,7 +23,7 @@ To simplify the process of connecting MCP servers,
     While,Configuration files remain necessary for custom or less common servers to ensure the open standard of MCP is maintained.
 
 
-For **custom** or **less common servers**, you’ll need to use configuration files to link them to MCP servers, ensuring compatibility with the open standards of MCP.
+For **custom** or **less common servers**, we’ll need to use configuration files to link them to MCP servers, ensuring compatibility with the open standards of MCP.
 
 ---
 ##
@@ -43,7 +43,7 @@ For **custom** or **less common servers**, you’ll need to use configuration fi
 
 1. **Select a client-server** (e.g., Google Drive) that already implements basic client-server communication.
 2. Set up **Claude Desktop** as your local environment for MCP testing. 
-3. **Connect the client** (Google Drive) to your **MCP server** (Claude Desktop or other platforms).
+3. **Connect the client** (Google Drive) to  **MCP client** (Claude Desktop or other platforms).
 4. Test different **requests** and **responses** between the two.
 
 ---
@@ -52,10 +52,10 @@ For **custom** or **less common servers**, you’ll need to use configuration fi
 
 MCP servers can be categorized into two main types: **local servers** and **remote servers**. 
 
-- **Local Servers**: These are servers that run on your local machine. They provide a controlled, customizable environment for testing and development.
+- **Local Servers**: These are servers that run on  local machine. They provide a controlled, customizable environment for testing and development.
 - **Remote Servers**: These servers are hosted on cloud platforms. They are typically more scalable but may involve additional configuration and security considerations.
 
-Both server types can be used to implement MCP, depending on your project's needs.
+Both server types can be used to implement MCP, depending on  project's needs.
 
 ### **Examples of Local Servers:**
 1. **File System MCP Server**  
