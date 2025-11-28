@@ -40,12 +40,12 @@ if __name__ == "__main__":
 
 5. Test server locally using MCP Inspector tool:
   ```
-  uv run fast-mcp debug main.py
+  uv run fastmcp dev main.py  
   ```
 
 6. Claude Desktop integration:
   ```
-  uv run fast-mcp install claude-desktop main.py
+  uv run fastmcp install claude-desktop main.py
   ```
 
 If interrupted to solve the issue with the uv command not being recognized by Claude Desktop's configuration file.
