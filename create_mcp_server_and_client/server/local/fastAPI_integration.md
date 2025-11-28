@@ -13,13 +13,13 @@
 Code: server.py (The Bridge)
 
 ```bash
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
  
-from main import app # Assuming the existing Fast API app  named 'app' 
+from main import app        # Import from FastAPI file named 'main.py' Assuming the existing Fast API app  named 'app' 
 
 mcp = FastMCP.from_fastapi(
     app=app,
-    name="FastAPI Expense Tracker"
+    name="ExpenseTracker"
 )
 
 if __name__ == "__main__":
