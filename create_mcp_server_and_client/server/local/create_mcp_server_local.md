@@ -81,7 +81,7 @@ If interrupted to solve the issue with the uv command not being recognized by Cl
 Code: server.py (The Bridge)
 
 ```bash
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
  
 from main import app # Assuming the existing Fast API app  named 'app' 
 
